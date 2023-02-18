@@ -1,0 +1,4 @@
+/.idea
+.swp
+/etc/pgsql/data
+/etc/mysql/data
