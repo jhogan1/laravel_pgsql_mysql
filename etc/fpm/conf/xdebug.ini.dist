@@ -1,5 +1,4 @@
 [xdebug]
-zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20210902/xdebug.so
 xdebug.mode=debug,coverage
 xdebug.idekey=PHPSTORM
 xdebug.client_port=9500
