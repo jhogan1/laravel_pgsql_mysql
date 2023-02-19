@@ -7,21 +7,21 @@ services:
       - "8080:80"
     depends_on:
       - app
-      - mysqldb
+      - pgdb
     volumes:
       - ./src:/var/www
       - ./etc/nginx/conf.d/:/etc/nginx/conf.d
 
-  mysqldb:
-    container_name: mysql
-    image: mysql
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./etc/mysql/data:/var/lib/mysql
-    environment:
-      MYSQL_DATABASE: laravel_mysql
-      MYSQL_ROOT_PASSWORD: mysql_pwd
+#  mysqldb:
+#    container_name: mysql
+#    image: mysql
+#    ports:
+#      - "3306:3306"
+#    volumes:
+#      - ./etc/mysql/data:/var/lib/mysql
+#    environment:
+#      MYSQL_DATABASE: laravel_mysql
+#      MYSQL_ROOT_PASSWORD: mysql_pwd
 
   pgdb:
     image: postgres
