@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HelloWorldController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::controller(HelloWorldController::class)->group(
+    function () {
+        Route::get('/hello-world', 'index')->name('hello-world');
+    }
+);
+
 Route::get('/', function () {
     return view('welcome');
 });
+
