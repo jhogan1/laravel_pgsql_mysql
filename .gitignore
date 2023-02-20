@@ -1,0 +1,6 @@
+/.idea
+.swp
+/docker-compose.yml
+/etc/pgsql/data
+/etc/mysql/data
+/etc/fpm/conf/xdebug.ini
