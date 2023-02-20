@@ -11,6 +11,8 @@ use App\Repositories\FavoriteColorRepositoryInterface;
 class FavoriteColorRepository extends BaseRepository implements FavoriteColorRepositoryInterface
 {
     /**
+     * FavoriteColorRepository_Constructor
+     *
      * @param FavoriteColor $model
      */
     public function __construct(FavoriteColor $model)

@@ -2,15 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Eloquent\FavoriteColorRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 /**
- * class FavoriteController
+ * FavoriteColorController_Class
  */
-class FavoriteController extends Controller
+class FavoriteColorController extends Controller
 {
+    /**
+     * FavoriteColorController_Constructor
+     *
+     * @param FavoriteColorRepository $favoriteColorRepository
+     */
+    public function __construct(protected FavoriteColorRepository $favoriteColorRepository)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,17 +28,6 @@ class FavoriteController extends Controller
      * @throws Exception
      */
     public function index(): Response
-    {
-       throw new Exception('not implemented');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     * @throws Exception
-     */
-    public function create(): Response
     {
         throw new Exception('not implemented');
     }
@@ -53,18 +52,6 @@ class FavoriteController extends Controller
      * @throws Exception
      */
     public function show(int $id): Response
-    {
-        throw new Exception('not implemented');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     * @throws Exception
-     */
-    public function edit(int $id): Response
     {
         throw new Exception('not implemented');
     }

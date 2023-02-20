@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HelloWorldController;
-use App\Http\Controllers\FavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +17,6 @@ use App\Http\Controllers\FavoriteController;
 Route::controller(HelloWorldController::class)->group(
     function () {
         Route::get('/hello-world', 'index')->name('hello-world');
-    }
-);
-
-Route::controller(FavoriteController::class)->group(
-    function () {
-        Route::get('/create', 'create')->name('create');
     }
 );
 

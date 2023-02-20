@@ -12,13 +12,10 @@ return new class extends Migration {
      */
     public function up()
     {
-        if (!Schema::hasTable('color')) {
-            Schema::create('color', function (Blueprint $table) {
+        if (!Schema::hasTable('color_categories')) {
+            Schema::create('color_categories', function (Blueprint $table) {
                 $table->id();
-                $table->unsignedBigInteger('category_id')->nullable(false);
-                $table->foreign('category_id')->references('id')->on('color_category')->onDelete('cascade');
-                $table->string('color', 64)->nullable(false);
-                $table->string('hex', 8)->nullable(false);
+                $table->string('name', 32)->nullable(false);
                 $table->timestamps();
             });
         }
@@ -31,6 +28,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('color');
+        Schema::dropIfExists('color_categories');
     }
 };

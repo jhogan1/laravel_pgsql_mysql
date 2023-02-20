@@ -4,7 +4,6 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\ColorCategory;
 use App\Repositories\ColorCategoryRepositoryInterface;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * ColorCategoryRepository_Class
@@ -12,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
 class ColorCategoryRepository extends BaseRepository implements ColorCategoryRepositoryInterface
 {
     /**
+     * ColorCategoryRepository_Constructor
+     *
      * @param ColorCategory $model
      */
     public function __construct(ColorCategory $model)

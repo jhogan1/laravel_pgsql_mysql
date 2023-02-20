@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Repositories\EloquentRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 /**
  * BaseRepository_Class

@@ -11,6 +11,8 @@ use App\Repositories\ColorRepositoryInterface;
 class ColorRepository extends BaseRepository implements ColorRepositoryInterface
 {
     /**
+     * ColorRepository_Constructor
+     *
      * @param Color $model
      */
     public function __construct(Color $model)

@@ -17,7 +17,7 @@ return new class extends Migration {
                 $table->id();
                 $table->string('user_name', 32)->nullable(false)->default('NA');
                 $table->unsignedBigInteger('color_id')->nullable(false);
-                $table->foreign('color_id')->references('id')->on('color')->onDelete('cascade');
+                $table->foreign('color_id')->references('id')->on('colors')->onDelete('cascade');
                 $table->timestamps();
             });
         }

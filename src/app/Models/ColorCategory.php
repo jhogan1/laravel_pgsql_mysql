@@ -17,13 +17,13 @@ class ColorCategory extends Model
      * @var string[]
      */
     protected $fillable = [
-        'category'
+        'name'
     ];
 
     /**
      * @return hasMany
      */
-    public function colors(): HasMany
+    public function colorCategories(): HasMany
     {
         return $this->hasMany(Color::class, 'category_id');
     }
