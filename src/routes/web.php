@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FavoriteColorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HelloWorldController;
 
@@ -24,3 +25,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::controller(FavoriteColorController::class)->group(
+    function () {
+       Route::get('/favorite-colors', 'home')->name('favorite-colors');
+    }
+);

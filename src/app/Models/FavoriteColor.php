@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -17,7 +18,7 @@ class FavoriteColor extends Model
      * @var string[]
      */
     protected $fillable = [
-        'user_name',
+        'user_id',
         'color_id'
     ];
 
@@ -27,5 +28,14 @@ class FavoriteColor extends Model
     public function color(): HasOne
     {
         return $this->hasOne(Color::class, 'color_id');
+    }
+
+
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

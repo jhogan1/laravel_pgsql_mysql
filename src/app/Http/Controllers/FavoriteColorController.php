@@ -6,6 +6,8 @@ use App\Repositories\Eloquent\FavoriteColorRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\View;
+use Illuminate\View\View as ViewAlias;
 
 /**
  * FavoriteColorController_Class
@@ -30,6 +32,14 @@ class FavoriteColorController extends Controller
     public function index(): Response
     {
         throw new Exception('not implemented');
+    }
+
+    /**
+     * @return ViewAlias
+     */
+    public function home(): ViewAlias
+    {
+        return View::make('favorite_color.pages.home');
     }
 
     /**
