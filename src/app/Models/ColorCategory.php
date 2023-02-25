@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * ColorCategory_Class a model for the color_category table
@@ -21,10 +21,10 @@ class ColorCategory extends Model
     ];
 
     /**
-     * @return hasMany
+     * @return BelongsTo
      */
-    public function colorCategories(): HasMany
+    public function color(): BelongsTo
     {
-        return $this->hasMany(Color::class, 'category_id');
+        return $this->belongsTo(Color::class);
     }
 }

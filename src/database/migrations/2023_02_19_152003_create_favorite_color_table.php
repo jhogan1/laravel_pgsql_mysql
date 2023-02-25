@@ -12,10 +12,11 @@ return new class extends Migration {
      */
     public function up()
     {
-        if (!Schema::hasTable('favorite_color')) {
-            Schema::create('favorite_color', function (Blueprint $table) {
+        if (!Schema::hasTable('favorite_colors')) {
+            Schema::create('favorite_colors', function (Blueprint $table) {
                 $table->id();
-                $table->string('user_name', 32)->nullable(false)->default('NA');
+                $table->unsignedBigInteger('user_id')->nullable(false);
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
                 $table->unsignedBigInteger('color_id')->nullable(false);
                 $table->foreign('color_id')->references('id')->on('colors')->onDelete('cascade');
                 $table->timestamps();
@@ -30,6 +31,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('favorite_color');
+        Schema::dropIfExists('favorite_colors');
     }
 };

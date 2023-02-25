@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Eloquent\FavoriteColorRepository;
-use Exception;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\View;
 use Illuminate\View\View as ViewAlias;
 
@@ -26,12 +26,11 @@ class FavoriteColorController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
-     * @throws Exception
+     * @return Collection
      */
-    public function index(): Response
+    public function index(): Collection
     {
-        throw new Exception('not implemented');
+        return $this->favoriteColorRepository->all();
     }
 
     /**
@@ -46,24 +45,22 @@ class FavoriteColorController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
-     * @throws Exception
+     * @return Model
      */
-    public function store(Request $request): Response
+    public function store(Request $request): Model
     {
-        throw new Exception('not implemented');
+        return $this->favoriteColorRepository->create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return Response
-     * @throws Exception
+     * @return Model|null
      */
-    public function show(int $id): Response
+    public function show(int $id): ?Model
     {
-        throw new Exception('not implemented');
+        return $this->favoriteColorRepository->find($id);
     }
 
     /**
@@ -71,23 +68,31 @@ class FavoriteColorController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return Response
-     * @throws Exception
+     * @return string
      */
-    public function update(Request $request, int $id): Response
+    public function update(Request $request, int $id): string
     {
-        throw new Exception('not implemented');
+        $params = json_decode($request->getContent(), true);
+
+        if ($this->favoriteColorRepository->update($id, $params)) {
+            return 'Favorite Color Record Updated';
+        } else {
+            return 'Favorite Color Record Update FAILED!';
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Response
-     * @throws Exception
+     * @return string
      */
-    public function destroy(int $id): Response
+    public function destroy(int $id): string
     {
-        throw new Exception('not implemented');
+        if ($this->favoriteColorRepository->destroy($id)) {
+            return 'Favorite Color Record Deleted';
+        } else {
+            return 'Favorite Color Record Delete FAILED!';
+        }
     }
 }

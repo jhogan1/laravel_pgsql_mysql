@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ColorCategoryController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\FavoriteColorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('colors', ColorController::class);
 Route::resource('color-categories', ColorCategoryController::class);
+Route::resource('favorite-colors', FavoriteColorController::class);

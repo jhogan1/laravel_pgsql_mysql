@@ -43,6 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return HasOne
+     */
     public function favoriteColor(): HasOne
     {
         return $this->hasOne(FavoriteColor::class);

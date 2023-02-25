@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -24,11 +24,18 @@ class Color extends Model
     ];
 
     /**
-     * @return HasOne
+     * @return HasMany
      */
-    public function category(): HasOne
+    public function categories(): HasMany
     {
-        return $this->hasOne(ColorCategory::class, 'category_id');
+        return $this->hasMany(ColorCategory::class);
     }
 
+    /**
+     * @return HasOne
+     */
+    public function favoriteColor(): HasOne
+    {
+        return $this->hasOne(FavoriteColor::class);
+    }
 }
