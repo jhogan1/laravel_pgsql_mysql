@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ColorCategoryController;
 use App\Http\Controllers\FavoriteColorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HelloWorldController;
