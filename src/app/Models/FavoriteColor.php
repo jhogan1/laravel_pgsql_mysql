@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * FavoriteColor_Class
+ *
+ * @property Color $color
+ * @property User $user
  */
 class FavoriteColor extends Model
 {
@@ -26,7 +29,7 @@ class FavoriteColor extends Model
      */
     public function color(): BelongsTo
     {
-        return $this->belongsTo(Color::class, 'color_id');
+        return $this->belongsTo(Color::class);
     }
 
     /**

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Eloquent\ColorCategoryRepository;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 /**
  * ColorCategoryController_Class
@@ -24,33 +23,111 @@ class ColorCategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Collection
+     * @return Response
+     *
+     * @OA\Get(
+     *     path="/api/color-categories",
+     *     summary="Get all the color categories",
+     *     tags={"ColorCategoryController"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent()
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Server Error"
+     *     )
+     * )
      */
-    public function index(): Collection
+    public function index(): Response
     {
-        return $this->colorCategoryRepository->all();
+        $colorCategories = $this->colorCategoryRepository->all();
+
+        return Response($colorCategories);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Model
+     * @return Response
+     *
+     * @OA\Post(
+     *     path="/api/color-categories",
+     *     summary="Add a new color category",
+     *     tags={"ColorCategoryController"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="success",
+     *         @OA\JsonContent()
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="error"
+     *     ),
+     *     @OA\RequestBody(
+     *         description="payload",
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 required={"name"},
+     *                 @OA\Property(
+     *                     property="name",
+     *                     type="string"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
      */
-    public function store(Request $request): Model
+    public function store(Request $request): Response
     {
-        return $this->colorCategoryRepository->create($request->all());
+        $newColorCategory = $this->colorCategoryRepository->create($request->all());
+
+        return Response($newColorCategory);
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return Model|null
+     * @return Response
+     *
+     * @OA\Get(
+     *     path="/api/color-categories/{id}",
+     *     summary="Get a color category by ID",
+     *     tags={"ColorCategoryController"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="success",
+     *         @OA\JsonContent()
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="error"
+     *     ),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="color_catetories.id",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     )
+     * )
      */
-    public function show(int $id): ?Model
+    public function show(int $id): Response
     {
-        return $this->colorCategoryRepository->find($id);
+        $colorCategory = $this->colorCategoryRepository->find($id);
+
+        if (empty($colorCategory)) {
+            return Response('Error', 500);
+        }
+
+        return Response($colorCategory);
     }
 
     /**
@@ -59,6 +136,44 @@ class ColorCategoryController extends Controller
      * @param Request $request
      * @param int $id
      * @return string
+     *
+     * @OA\Patch(
+     *     path="/api/color-categories/{id}",
+     *     summary="Update and existing color category",
+     *     tags={"ColorCategoryController"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="success",
+     *         @OA\JsonContent()
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="error"
+     *     ),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="color_categories.id",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\RequestBody(
+     *         description="payload",
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 required={"name"},
+     *                 @OA\Property(
+     *                     property="name",
+     *                     type="string"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
      */
     public function update(Request $request, int $id): string
     {
@@ -76,6 +191,30 @@ class ColorCategoryController extends Controller
      *
      * @param int $id
      * @return string
+     *
+     * @OA\Delete(
+     *     path="/api/color-categories/{id}",
+     *     summary="Delete a color category",
+     *     tags={"ColorCategoryController"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="success",
+     *         @OA\JsonContent()
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="error"
+     *     ),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="color_categories.id",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     )
+     * )
      */
     public function destroy(int $id): string
     {

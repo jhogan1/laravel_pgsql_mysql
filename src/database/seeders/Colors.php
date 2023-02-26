@@ -56,5 +56,12 @@ class Colors extends Seeder
                 'hex' => '#6600FF'
             ]
         );
+        Color::create(
+            [
+                'category_id' => '3',
+                'color' => 'kelly green',
+                'hex' => '#4CBB17'
+            ]
+        );
     }
 }

@@ -28,6 +28,6 @@ Route::get('/', function () {
 
 Route::controller(FavoriteColorController::class)->group(
     function () {
-       Route::get('/favorite-colors', 'home')->name('favorite-colors');
+       Route::get('/users-favorite-colors', 'home')->name('favorite-colors');
     }
 );

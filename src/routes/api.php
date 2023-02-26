@@ -3,8 +3,10 @@
 use App\Http\Controllers\ColorCategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\FavoriteColorController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +23,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('favorite-colors', FavoriteColorController::class);
+Route::controller(FavoriteColorController::class)->group(
+   function () {
+       Route::get('/favorite-colors', 'index');
+       Route::get('/favorite-colors/{id}', 'show');
+       Route::delete('/favorite-colors/{id}', 'destroy');
+       Route::post('/favorite-colors', 'store');
+       Route::patch('/favorite-colors/{id}', 'update');
+       Route::get('/favorite-colors/users/{id}', 'getFavoriteColorByUserId');
+   }
+);
+
+Route::controller(UserController::class)->group(
+    function () {
+       Route::get('/users/favorite-colors/colors/{id}', 'getUsersByFavoriteColorsColorId');
+    }
+);
 
 Route::controller(ColorController::class)->group(
     function () {
@@ -30,7 +47,7 @@ Route::controller(ColorController::class)->group(
         Route::delete('/colors/{id}', 'destroy');
         Route::post('/colors', 'store');
         Route::patch('/colors/{id}', 'update');
-        Route::get('/colors/categories/{id}', 'getColorsByCategoryId')->name('get-categories-by-color-id');
+        Route::get('/colors/categories/{id}', 'getColorsByCategoryId');
     }
 );
 

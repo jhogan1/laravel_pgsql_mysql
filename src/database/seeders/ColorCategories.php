@@ -24,5 +24,10 @@ class ColorCategories extends Seeder
                 'name' => 'secondary'
             ]
         );
+        ColorCategory::create(
+            [
+                'name' => 'other'
+            ]
+        );
     }
 }

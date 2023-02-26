@@ -86,5 +86,11 @@ class FavoriteColors extends Seeder
                 'color_id' => 6
             ]
         );
+        FavoriteColor::create(
+            [
+                'user_id' => 13,
+                'color_id' => 7
+            ]
+        );
     }
 }

@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Color_Class a model for the color table
+ *
+ * @property ColorCategory $category
  */
 class Color extends Model
 {
@@ -33,10 +35,10 @@ class Color extends Model
     }
 
     /**
-     * @return BelongsTo
+     * @return HasMany
      */
-    public function favoriteColor(): BelongsTo
+    public function favoriteColor(): HasMany
     {
-        return $this->belongsTo(FavoriteColor::class);
+        return $this->hasMany(FavoriteColor::class);
     }
 }
