@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Repositories\Eloquent\ColorCategoryRepository;
 use App\Repositories\Eloquent\ColorRepository;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -141,7 +139,7 @@ class ColorController extends Controller
             return Response('Error', 500);
         }
 
-        return Response($this->colorRepository->find($id));
+        return Response($color);
     }
 
     /**

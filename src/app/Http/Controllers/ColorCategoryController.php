@@ -16,7 +16,9 @@ class ColorCategoryController extends Controller
      *
      * @param ColorCategoryRepository $colorCategoryRepository
      */
-    public function __construct(protected ColorCategoryRepository $colorCategoryRepository)
+    public function __construct(
+        protected ColorCategoryRepository $colorCategoryRepository
+    )
     {
     }
 

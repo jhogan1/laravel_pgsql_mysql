@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Repositories\Eloquent\ColorRepository;
 use App\Repositories\Eloquent\FavoriteColorRepository;
 use App\Repositories\Eloquent\UserRepository;
 use Exception;
@@ -21,12 +20,10 @@ class FavoriteColorController extends Controller
      * FavoriteColorController_Constructor
      *
      * @param FavoriteColorRepository $favoriteColorRepository
-     * @param ColorRepository $colorRepository
      * @param UserRepository $userRepository
      */
     public function __construct(
         protected FavoriteColorRepository $favoriteColorRepository,
-        protected ColorRepository $colorRepository,
         protected UserRepository $userRepository
     )
     {

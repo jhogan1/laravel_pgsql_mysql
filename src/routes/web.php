@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\ColorCategoryController;
 use App\Http\Controllers\FavoriteColorController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HelloWorldController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +13,6 @@ use App\Http\Controllers\HelloWorldController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::controller(HelloWorldController::class)->group(
-    function () {
-        Route::get('/hello-world', 'index')->name('hello-world');
-    }
-);
 
 Route::get('/', function () {
     return view('welcome');
