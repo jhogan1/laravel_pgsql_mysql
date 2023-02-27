@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * ColorCategory_Class a model for the color_category table
+ * ColorCategory_Class
  *
  * @property Collection $colors
  */
