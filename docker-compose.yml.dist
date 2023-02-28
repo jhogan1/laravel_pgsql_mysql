@@ -11,6 +11,7 @@ services:
       - pgdb
     volumes:
       - ./src:/var/www
+      - ./src/storage/logs/nginx/:/var/log/nginx
       - ./etc/nginx/conf.d/:/etc/nginx/conf.d
 
 #  mysqldb:

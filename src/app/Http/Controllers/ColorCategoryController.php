@@ -11,6 +11,10 @@ use Illuminate\Http\Response;
  */
 class ColorCategoryController extends Controller
 {
+    protected array $rules = [
+        'name' => 'required|unique:color_categories,name'
+    ];
+
     /**
      * ColorCategoryController_Constructor
      *
@@ -65,6 +69,11 @@ class ColorCategoryController extends Controller
      *         @OA\JsonContent()
      *     ),
      *     @OA\Response(
+     *         response=422,
+     *         description="unprocessable",
+     *         @OA\JsonContent()
+     *     ),
+     *     @OA\Response(
      *         response=500,
      *         description="error"
      *     ),
@@ -86,7 +95,9 @@ class ColorCategoryController extends Controller
      */
     public function store(Request $request): Response
     {
-        $newColorCategory = $this->colorCategoryRepository->create($request->all());
+        $data = $request->validateWithBag('colorCategory', $this->rules);
+
+        $newColorCategory = $this->colorCategoryRepository->create($data);
 
         return Response($newColorCategory);
     }
@@ -137,7 +148,7 @@ class ColorCategoryController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return string
+     * @return Response
      *
      * @OA\Patch(
      *     path="/api/color-categories/{id}",
@@ -146,6 +157,11 @@ class ColorCategoryController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="success",
+     *         @OA\JsonContent()
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="unprocessable",
      *         @OA\JsonContent()
      *     ),
      *     @OA\Response(
@@ -177,15 +193,13 @@ class ColorCategoryController extends Controller
      *     )
      * )
      */
-    public function update(Request $request, int $id): string
+    public function update(Request $request, int $id): Response
     {
-        $params = json_decode($request->getContent(), true);
+        $data = $request->validateWithBag('colorCategory', $this->rules);
 
-        if ($this->colorCategoryRepository->update($id, $params)) {
-            return 'Color Category Updated';
-        } else {
-            return 'Color Category Update FAILED!';
-        }
+        $this->colorCategoryRepository->update($id, $data);
+
+        return Response('Color Category Updated');
     }
 
     /**

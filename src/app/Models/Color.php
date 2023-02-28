@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
- * Color_Class a model for the color table
+ * Color_Class
  *
  * @property ColorCategory $category
+ * @property Collection favoriteColor
  */
 class Color extends Model
 {

@@ -66,27 +66,34 @@ class ColorControllerTest extends TestCase
             'hex' => '#6600FF'
         ];
 
+        $rules = [
+            'category_id' => 'required|integer',
+            'color' => 'required|string|max:64',
+            'hex' => 'required|regex:/^#[a-fA-F0-9]{6}$/i',
+        ];
+
         /** @var Request|MockInterface $request */
         $request = $this->mock(Request::class);
 
         $request
-            ->shouldReceive('all')
+            ->shouldReceive('validateWithBag')
             ->once()
+            ->with('color', $rules)
             ->andReturn($body);
 
-        /** @var Color|MockInterface $color */
-        $color = $this->mock(Color::class);
+        /** @var Color|MockInterface $newColor */
+        $newColor = $this->mock(Color::class);
         $this->colorRepository
             ->shouldReceive('create')
             ->with($body)
             ->once()
-            ->andReturn($color);
+            ->andReturn($newColor);
 
         $newRecord = $body;
         $newRecord['id'] = 1;
         $newRecord = json_encode($newRecord);
 
-        $color
+        $newColor
             ->shouldReceive('toJson')
             ->once()
             ->andReturn($newRecord);
@@ -136,13 +143,20 @@ class ColorControllerTest extends TestCase
             'category_id' => 3
         ];
 
+        $rules = [
+            'category_id' => 'integer',
+            'color' => 'string|max:64',
+            'hex' => 'regex:/^#[a-fA-F0-9]{6}$/i'
+        ];
+
         /** @var Request|MockInterface $request */
         $request = $this->mock(Request::class);
 
         $request
-            ->shouldReceive('getContent')
+            ->shouldReceive('validateWithBag')
             ->once()
-            ->andReturn(json_encode($patchData));
+            ->with('color', $rules)
+            ->andReturn($patchData);
 
         $this->colorRepository
             ->shouldReceive('update')
@@ -150,9 +164,10 @@ class ColorControllerTest extends TestCase
             ->with($id, $patchData)
             ->andReturnTrue();
 
-        $message = $this->controller->update($request, $id);
+        $response = $this->controller->update($request, $id);
 
-        $this->assertEquals('Color Record Updated', $message);
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertEquals(200, $response->getStatusCode());
     }
 
     public function test_that_destroy_removes_record_and_returns_expected_string()

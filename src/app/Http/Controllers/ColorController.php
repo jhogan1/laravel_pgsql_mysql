@@ -19,7 +19,7 @@ class ColorController extends Controller
      * @param ColorCategoryRepository $colorCategoryRepository
      */
     public function __construct(
-        protected ColorRepository $colorRepository,
+        protected ColorRepository         $colorRepository,
         protected ColorCategoryRepository $colorCategoryRepository
     )
     {
@@ -68,6 +68,11 @@ class ColorController extends Controller
      *         @OA\JsonContent()
      *     ),
      *     @OA\Response(
+     *         response=422,
+     *         description="unprocessable",
+     *         @OA\JsonContent()
+     *     ),
+     *     @OA\Response(
      *         response=500,
      *         description="error"
      *     ),
@@ -96,7 +101,15 @@ class ColorController extends Controller
      */
     public function store(Request $request): Response
     {
-        $newColor = $this->colorRepository->create($request->all());
+        $rules = [
+            'category_id' => 'required|integer',
+            'color' => 'required|string|max:64',
+            'hex' => 'required|regex:/^#[a-fA-F0-9]{6}$/i'
+        ];
+
+        $data = $request->validateWithBag('color', $rules);
+
+        $newColor = $this->colorRepository->create($data);
 
         return Response($newColor);
     }
@@ -147,7 +160,7 @@ class ColorController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return string
+     * @return Response
      *
      * @OA\Patch(
      *     path="/api/colors/{id}",
@@ -156,6 +169,11 @@ class ColorController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="success",
+     *         @OA\JsonContent()
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="unprocessable",
      *         @OA\JsonContent()
      *     ),
      *     @OA\Response(
@@ -196,15 +214,19 @@ class ColorController extends Controller
      *     )
      * )
      */
-    public function update(Request $request, int $id): string
+    public function update(Request $request, int $id): Response
     {
-        $params = json_decode($request->getContent(), true);
+        $rules = [
+            'category_id' => 'integer',
+            'color' => 'string|max:64',
+            'hex' => 'regex:/^#[a-fA-F0-9]{6}$/i'
+        ];
 
-        if ($this->colorRepository->update($id, $params)) {
-            return 'Color Record Updated';
-        } else {
-            return 'Color Record Update FAILED!';
-        }
+        $data = $request->validateWithBag('color', $rules);
+
+        $this->colorRepository->update($id, $data);
+
+        return Response('Color Record Updated');
     }
 
     /**

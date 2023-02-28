@@ -18,7 +18,7 @@ return new class extends Migration {
                 $table->unsignedBigInteger('category_id')->nullable(false);
                 $table->foreign('category_id')->references('id')->on('color_categories')->onDelete('cascade');
                 $table->string('color', 64)->nullable(false);
-                $table->string('hex', 8)->nullable(false);
+                $table->string('hex', 7)->nullable(false);
                 $table->timestamps();
             });
         }
