@@ -18,6 +18,9 @@ class ColorCategoryControllerTest extends TestCase
 {
     protected ColorCategoryRepository|MockInterface $colorCategoryRepository;
     protected ColorCategoryController $controller;
+    protected array $rules = [
+        'name' => 'required|unique:color_categories,name'
+    ];
 
     public function setUp(): void
     {
@@ -30,7 +33,7 @@ class ColorCategoryControllerTest extends TestCase
 
     public function test_that_index_returns_expected_json()
     {
-        $expectedBody = '[{"foo";"bar"},{"bar":"foo"}]';
+        $expectedBody = '[{"name";"primary"},{"name":"secondary"}]';
 
         /** @var Collection|MockInterface $records */
         $records = $this->mock(Collection::class);
@@ -61,8 +64,9 @@ class ColorCategoryControllerTest extends TestCase
         $request = $this->mock(Request::class);
 
         $request
-            ->shouldReceive('all')
+            ->shouldReceive('validateWithBag')
             ->once()
+            ->with('colorCategory', $this->rules)
             ->andReturn($body);
 
         /** @var ColorCategory|MockInterface $color */
@@ -129,9 +133,10 @@ class ColorCategoryControllerTest extends TestCase
         $request = $this->mock(Request::class);
 
         $request
-            ->shouldReceive('getContent')
+            ->shouldReceive('validateWithBag')
             ->once()
-            ->andReturn(json_encode($patchData));
+            ->with('colorCategory', $this->rules)
+            ->andReturn($patchData);
 
         $this->colorCategoryRepository
             ->shouldReceive('update')
@@ -139,9 +144,10 @@ class ColorCategoryControllerTest extends TestCase
             ->with($id, $patchData)
             ->andReturnTrue();
 
-        $message = $this->controller->update($request, $id);
+        $response = $this->controller->update($request, $id);
 
-        $this->assertEquals('Color Category Updated', $message);
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertEquals(200, $response->getStatusCode());
     }
 
     public function test_that_destroy_removes_record_and_returns_expected_string()

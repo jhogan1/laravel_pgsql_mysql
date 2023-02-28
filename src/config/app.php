@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://favoritecolors.com'),
+    'url' => env('APP_URL', 'http://local-favoritecolors.com'),
 
     'asset_url' => env('ASSET_URL', null),
 
